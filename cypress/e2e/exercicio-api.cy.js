@@ -2,6 +2,14 @@
 
 describe('Testes da Funcionalidade Usuários', () => {
 
+  let token
+  beforeEach(() => {
+    cy.token('fulano@qa.com', 'teste').then(tkn => {
+      token = tkn
+    })
+  });
+
+
   it('Deve validar contrato de usuarios', () => {
     cy.request('usuarios').then(response => {
         return contrato.validateAsync(response.body)
@@ -33,7 +41,6 @@ describe('Testes da Funcionalidade Usuários', () => {
   });
 
   it('Deve editar um usuário previamente cadastrado', () => {
-    let token = "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImZ1bGFub0BxYS5jb20iLCJwYXNzd29yZCI6InRlc3RlIiwiaWF0IjoxNTg5NzU4NzQ2LCJleHAiOjE1ODk3Njg3NDZ9.B6TASHV8k9xBerz4NSeFBlAZGSDhZlqESt767M0567I"
     cy.request({
       method: 'PUT',
       url: 'usuarios' + '/0uxuPY0cbmQhpEz1',
